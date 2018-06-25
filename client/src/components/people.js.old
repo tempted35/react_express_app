@@ -1,0 +1,51 @@
+import React, { Component } from 'react';
+import '../../node_modules/react-bootstrap-table-next/dist/react-bootstrap-table2.min.css'
+import BootstrapTable from 'react-bootstrap-table-next'
+
+class People extends Component {
+  constructor() {
+    super();
+    this.state = {
+      people: []
+    };
+  }
+
+  // Runs automatically when the component is mounted
+  componentDidMount() {
+    // fetch returns a 'promise'
+    fetch('/api/recipients')
+      .then(res => res.json())
+      .then(people => this.setState({people: people}, () => 
+        console.log('People fetched...', people)));
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <div className="panel panel-default">
+          <h2>Recipients</h2>
+          <table className="table table-condensed">
+            <thead className="blue-grey">
+              <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Known For</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {this.state.people.map(people => 
+                <tr key={people.id}>
+                  <td>{people.name.first}</td>
+                  <td>{people.name.last}</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default People;
