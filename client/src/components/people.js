@@ -23,7 +23,6 @@ class People extends Component {
   onSort(evt, sortKey) 
   {
     let people = this.state.people;
-  
     if(['first', 'last'].includes(sortKey))
     {
       if(!this.reversed)
@@ -62,22 +61,24 @@ class People extends Component {
     const classes = 'table table-striped table-hover';
     // Returns a component
     return (
-        <div className="panel panel-default">
+        <div>
           <h2>Recipients</h2>
           <table className={classes}>
             <thead className="thead-light">
               <tr>
-                <th onClick={e => this.onSort(e, 'first')}>
-                  <span>First Name</span>
-                  <span className="fa fa-sort"></span>
+                <th onClick={e => this.onSort(e, 'first')} 
+                  style={{width: "20%", cursor: 'pointer'}} >
+                    <span>First Name</span>
+                    <span className="fa fa-sort" style={{"font-size":"32px"}}></span>
                 </th>
-                <th onClick={e => this.onSort(e, 'last')}>
-                  <span>Last Name</span>
-                  <span className="fa fa-sort"></span>
+                <th onClick={e => this.onSort(e, 'last')} 
+                  style={{width: "20%", cursor: 'pointer'}}>
+                    <span>Last Name</span>
+                    <span className="fa fa-sort" style={{"font-size":"32px"}}></span>
                 </th>
-                <th onClick={e => this.onSort(e, 'birth')}>
+                <th onClick={e => this.onSort(e, 'birth')} style={{cursor: 'pointer'}}>
                   <span>Birth</span>
-                  <span className="fa fa-sort"></span>
+                  <span className="fa fa-sort" style={{"font-size":"32px"}}></span>
                 </th>
                 <th>Death</th>
                 <th>Contributions</th>
@@ -107,7 +108,7 @@ class People extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="App-container">
         {this.makeTables(1)}
       </div>
     )
