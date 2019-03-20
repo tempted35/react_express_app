@@ -10,7 +10,7 @@ const app = express();
 // ROUTES
 //------------------------------------------------------------------------------
 app.get('/api/recipients', (req, res) => {
-  if(true)
+  if(false)
   {
     mongoClient.connect(URL, (err, db) => {
       if(err) throw err;
@@ -30,11 +30,12 @@ app.get('/api/recipients', (req, res) => {
   else
   {
     const customers = [
-      {id: 1, name: {first: 'John', last: 'Hennessey'}, birth: 1950},
-      {id: 1, name: {first: 'David', last: 'Patternson'}, birth: 1950},
-      {id: 1, name: {first: 'Andrew', last: 'Yao'}, birth: 1940},
+      {id: 1, name: {first: 'John', last: 'Hennessey'}, birth: 1950, death: 2999, contribs: ['abc,xx'], awards: ['turing', 'xxx']},
+      {id: 2, name: {first: 'David', last: 'Patternson'}, birth: 1950, death: 2999, contribs: ['abc,yy'], awards: ['turing', 'xxx']},
+      {id: 3, name: {first: 'Andrew', last: 'Yao'}, birth: 1940, death: 2999, contribs: ['abc,yy'], awards: ['turing', 'xxx']},
     ];
 
+    console.log('xxxxxxx');
     res.json(customers);
   }
 });
