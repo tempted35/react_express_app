@@ -9,17 +9,37 @@ class People extends Component {
     this.state = {
       people: []
     };
+
+    var host = window.location.hostname;
+    this.connection = new WebSocket('ws://'+host+':9090/');
+    // this.connection = new WebSocket('ws://localhost:9090/');
+    console.log(host);
   }
 
+  //----------------------------------------------------------------------------
   // Runs automatically when the component is mounted
+  //----------------------------------------------------------------------------
   componentDidMount() {
     // fetch returns a 'promise'
+    /*
     fetch('/api/recipients')
       .then(res => res.json())
       .then(people => this.setState({people: people}, () => 
         console.log('People fetched...', people)));
+    */
+
+    this.connection.onmessage = (evt) => {
+      // console.log(evt.data)
+      // const data = JSON.parse(JSON.stringify(evt.data))
+      const data = JSON.parse(evt.data)
+      console.log(data);
+      this.setState({people: data});
+    }
   }
   
+  //----------------------------------------------------------------------------
+  //
+  //----------------------------------------------------------------------------
   onSort(evt, sortKey) 
   {
     let people = this.state.people;
@@ -47,6 +67,9 @@ class People extends Component {
     this.reversed = !this.reversed;
   }
 
+  //----------------------------------------------------------------------------
+  //
+  //----------------------------------------------------------------------------
   makeTables(num) {
     let tables = [];
     for(let i = 0; i < num; ++i)
@@ -57,6 +80,9 @@ class People extends Component {
     return tables;
   }
 
+  //----------------------------------------------------------------------------
+  //
+  //----------------------------------------------------------------------------
   makeTable() {
     const classes = 'table table-striped table-hover';
     // Returns a component

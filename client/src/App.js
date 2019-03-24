@@ -3,16 +3,27 @@ import logo from './logo.svg';
 import './App.css';
 import Customers from './components/customers';
 import People from './components/people';
+import Login from './components/login';
 
 class App extends Component {
+  state = {
+    username: null
+  }
+
+  setUsername = (username) => {
+    this.setState({username})
+    sessionStorage.setItem('username', {username});
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">React Express Starter</h1>
-        </header>
-        <People />
+      {
+        !sessionStorage.getItem('username') ?
+          <Login setUsername={this.setUsername}/>
+          :
+          <People />
+      }
       </div>
     );
   }
